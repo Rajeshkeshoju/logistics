@@ -19,7 +19,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @Service
-public class RouterService {
+public class RouteService {
 
     private List<TollPlazaCsv> getTollPlazaList(String filePath) {
         List<TollPlazaCsv> tollPlazaCsvList = new ArrayList<>();
@@ -43,7 +43,7 @@ public class RouterService {
             throw new RuntimeException(e);
         }
 
-        return tollPlazaCsvList;
+        return tollPlazaCsvList.stream().distinct().toList();
     }
 
     private List<Postal> getCoordinates(String filePath, String pinCode) {
@@ -78,17 +78,14 @@ public class RouterService {
             throw new RuntimeException(e);
         }
 
-        return postalList;
+        return postalList.stream().distinct().toList();
     }
 
-    private static final double THRESHOLD_DISTANCE = 0.1; // Define a threshold for close proximity to the route
+    private static final double THRESHOLD_DISTANCE = 0.1;
     private static boolean isNearLine(double lat, double lon, double srcLat, double srcLon, double destLat, double destLon) {
-        // Check if the toll plaza is within a small distance from the line connecting the two points
         double distanceToSource = calculateDistance(lat, lon, srcLat, srcLon);
         double distanceToDestination = calculateDistance(lat, lon, destLat, destLon);
         double lineDistance = calculateDistance(srcLat, srcLon, destLat, destLon);
-
-        // Basic check to see if it's within the specified threshold
         return (distanceToSource + distanceToDestination <= lineDistance + THRESHOLD_DISTANCE);
     }
 
@@ -237,7 +234,7 @@ public class RouterService {
             tollPlazaList.add(plaza);
         });
 
-        tollPlazaResponse.setTollPlazaList(tollPlazaList.stream().sorted(Comparator.comparingInt(TollPlaza::getDistanceFromSource)).toList());
+        tollPlazaResponse.setTollPlazas(tollPlazaList.stream().sorted(Comparator.comparingInt(TollPlaza::getDistanceFromSource)).toList());
 
 
         return tollPlazaResponse;

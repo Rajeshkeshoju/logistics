@@ -1,8 +1,12 @@
 package com.example.logstics.controller;
 
-import com.example.logstics.model.*;
+import com.example.logstics.model.Journey;
+import com.example.logstics.model.SearchRequest;
+import com.example.logstics.model.SearchResponse;
+import com.example.logstics.model.TollPlazaResponse;
+import com.example.logstics.model.UploadResponse;
 import com.example.logstics.service.AmazonS3Service;
-import com.example.logstics.service.RouterService;
+import com.example.logstics.service.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,12 +26,12 @@ import org.springframework.web.multipart.MultipartFile;
 public class LogisticsController {
 
     private final AmazonS3Service amazonS3Service;
-    private final RouterService routerService;
+    private final RouteService routeService;
 
     @Autowired
-    public LogisticsController(AmazonS3Service amazonS3Service, RouterService routerService) {
+    public LogisticsController(AmazonS3Service amazonS3Service, RouteService routeService) {
         this.amazonS3Service = amazonS3Service;
-        this.routerService = routerService;
+        this.routeService = routeService;
     }
 
     @GetMapping(value = "/", produces = "application/json")
@@ -55,6 +59,6 @@ public class LogisticsController {
 
     @PostMapping(value = "/api/v1/toll-plazas", consumes = "application/json", produces = "application/json")
     public ResponseEntity<TollPlazaResponse> getTollPlazas(@RequestBody Journey journey) {
-        return new ResponseEntity<>(routerService.getTollPlazasInRoute(journey), HttpStatus.OK);
+        return new ResponseEntity<>(routeService.getTollPlazasInRoute(journey), HttpStatus.OK);
     }
 }

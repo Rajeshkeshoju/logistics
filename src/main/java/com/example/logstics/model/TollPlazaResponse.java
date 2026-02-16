@@ -8,7 +8,7 @@ import java.util.List;
 public class TollPlazaResponse {
     private String error;
     private Route route;
-    private List<TollPlaza> tollPlazaList;
+    private List<TollPlaza> tollPlazas;
 
     public String getError() {
         return error;
@@ -26,12 +26,12 @@ public class TollPlazaResponse {
         this.route = route;
     }
 
-    public List<TollPlaza> getTollPlazaList() {
-        return tollPlazaList;
+    public List<TollPlaza> getTollPlazas() {
+        return tollPlazas;
     }
 
-    public void setTollPlazaList(List<TollPlaza> tollPlazaList) {
-        this.tollPlazaList = tollPlazaList;
+    public void setTollPlazas(List<TollPlaza> tollPlazas) {
+        this.tollPlazas = tollPlazas;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class TollPlazaResponse {
         return "TollPlazaResponse{" +
                 "error=" + error +
                 ", route=" + route +
-                ", tollPlazaList=" + tollPlazaList +
+                ", tollPlazaList=" + tollPlazas +
                 '}';
     }
 }

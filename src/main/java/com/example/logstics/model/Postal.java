@@ -1,5 +1,7 @@
 package com.example.logstics.model;
 
+import java.util.Objects;
+
 public class Postal {
     private String circleName;
     private String regionName;
@@ -115,6 +117,18 @@ public class Postal {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Postal postal = (Postal) o;
+        return pinCode == postal.pinCode && Double.compare(latitude, postal.latitude) == 0 && Double.compare(longitude, postal.longitude) == 0 && Objects.equals(circleName, postal.circleName) && Objects.equals(regionName, postal.regionName) && Objects.equals(divisionName, postal.divisionName) && Objects.equals(officeName, postal.officeName) && Objects.equals(officeType, postal.officeType) && Objects.equals(delivery, postal.delivery) && Objects.equals(district, postal.district) && Objects.equals(stateName, postal.stateName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(circleName, regionName, divisionName, officeName, pinCode, officeType, delivery, district, stateName, latitude, longitude);
     }
 
     @Override

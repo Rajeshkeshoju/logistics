@@ -1,5 +1,7 @@
 package com.example.logstics.model;
 
+import java.util.Objects;
+
 public class TollPlazaCsv {
     private double longitude;
     private double latitude;
@@ -45,6 +47,18 @@ public class TollPlazaCsv {
 
     public void setGeoState(String geoState) {
         this.geoState = geoState;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        TollPlazaCsv that = (TollPlazaCsv) o;
+        return Double.compare(longitude, that.longitude) == 0 && Double.compare(latitude, that.latitude) == 0 && Objects.equals(tollName, that.tollName) && Objects.equals(geoState, that.geoState);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(longitude, latitude, tollName, geoState);
     }
 
     @Override

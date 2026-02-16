@@ -1,5 +1,13 @@
 package com.example.logstics.model;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@JsonPropertyOrder({
+        "name",
+        "latitude",
+        "longitude",
+        "distanceFromSource"
+})
 public class TollPlaza {
     private String name;
     private double latitude;
